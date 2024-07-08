@@ -1,27 +1,22 @@
 name: matrix-configuration.yml
 on:
-  push:
+  #push:
   workflow_dispatch:
   #schedule:
   #  - cron: "*/1 * * *"
 
 
 jobs:
-  deploy-on-ubuntu:
-    runs-on: ubuntu-latest
+  deploy:
+    strategy:
+      matrix:
+        os: [ubuntu-latest,windows-latest]
+        images: [hello-world,alpine]
+    runs-on: ${{matrix.os}}
     steps:
       - name: Echo Docker details
         run : docker info
 
-      - name: Run images
-        run: docker run hello-world
+      - name: Run images on ${{matrix.os}}
+        run: docker run ${{matrix.images}}
 
-
-  deploy-on-windows:
-    runs-on: windows-latest
-    steps:
-      - name: Echo Docker details
-        run: docker info
-
-      - name: Run images
-        run: docker run hello-world
