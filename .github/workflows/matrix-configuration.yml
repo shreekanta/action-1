@@ -20,7 +20,6 @@ jobs:
         include:
           - images: amd64/alpine
           - os: ubuntu-20.04
-
     runs-on: ${{matrix.os}}
     steps:
       - name: Echo Docker details
@@ -28,4 +27,3 @@ jobs:
 
       - name: Run images on ${{matrix.os}}
         run: docker run ${{matrix.images}}
-
